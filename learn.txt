@@ -1,0 +1,50 @@
+we are learning socket programming in python for our project related to network scanning tools
+socket(): Creates a new socket.
+bind(): Associates the socket to a specific address and port.
+listen(): Starts listening for incoming connections on the socket.
+accept(): Accepts a connection from a client and returns a new socket for communication.
+connect(): Establishes a connection to a remote server.
+send(): Sends data through the socket.
+recv(): Receives data from the socket.
+close(): Closes the socket connection.
+
+we are going to use above functions for socket programming.
+we can use this code to check the documentation of module:
+import modulename
+print(help(modulename))
+
+#lets breakdown the code :
+#step1: import socket library
+import socket
+#step2: create a function for running server.
+def run_server():
+#step3: initate a socket object with two parameter . socket(socket.address family , types of socket) where address family means ipv4 or IPV6 and types of socket means tcp ,udp 
+    server = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+#step4: assign value for server ip and port where server is running
+    server_ip = "127.0.0.1"
+    port = 8000
+#step5: bind the server ip and port with socket
+    server.bind((server_ip,port))
+#step6: make server listening for incoming connection 
+    server.listen(0)
+    print(f"Listening on {server_ip}:{port}")
+#step7: accepting the connection where accept() returns two values first one is socket object and 2nd is tuple with the address and port of client.
+    client_socket, client_address = server.accept()
+    print(f"accepted connection from {client_address[0]}:{client_address[1]}")
+#step8: connection loop receive until the message != "close"
+    while True:
+    #recieving upto 1024 bytes 
+        request = client_socket.recv(1024)
+        decoding the data from bits to string
+        request = request.decode("utf-8")
+
+        if request.lower() == "close":
+            break
+        print(f"Recieved:{request}")
+    #sending response  with encoding from string to bit
+        response = "accepted".encode("utf-8")
+        client_socket.send(response)
+    client_socket.close()
+    server.close()
+
+run_server()
