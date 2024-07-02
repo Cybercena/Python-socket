@@ -6,11 +6,12 @@ def icmp_ping(ip):
     ip_packet = IP(dst=ip)
     request = ip_packet / icmp
     reply = sr1(request, timeout=2, verbose=False)
-    
+
     if reply:
         print(f"Host {ip} is live")
-    else:
-        print(f"Host {ip} is unreachable")
+       
+       
+
 
 def single_ip():
     try:
@@ -29,6 +30,7 @@ def multiple_ips():
             icmp_ping(ip)
     except KeyboardInterrupt:
         print("\nPing process interrupted.")
+        return
     except Exception as e:
         print(f"An error occurred: {str(e)}")
 
@@ -42,6 +44,7 @@ def ip_range():
             icmp_ping(ip)
     except KeyboardInterrupt:
         print("\nPing process interrupted.")
+        return
     except Exception as e:
         print(f"An error occurred: {str(e)}")
 
@@ -53,9 +56,29 @@ def subnet():
             icmp_ping(ip)
     except KeyboardInterrupt:
         print("\nPing process interrupted.")
+        return
     except Exception as e:
         print(f"An error occurred: {str(e)}")
 
+
+#printing the Intro banner
+def Banner():
+    art = """
+ .-----------------.  .----------------.  .----------------.  .----------------.  .----------------. 
+| .--------------. || .--------------. || .--------------. || .--------------. || .--------------. |
+| | ____  _____  | || |  _________   | || |  _________   | || |  _______     | || |      __      | |
+| ||_   \|_   _| | || | |_   ___  |  | || | |  _   _  |  | || | |_   __ \    | || |     /  \     | |
+| |  |   \ | |   | || |   | |_  \_|  | || | |_/ | | \_|  | || |   | |__) |   | || |    / /\ \    | |
+| |  | |\ \| |   | || |   |  _|  _   | || |     | |      | || |   |  __ /    | || |   / ____ \   | |
+| | _| |_\   |_  | || |  _| |___/ |  | || |    _| |_     | || |  _| |  \ \_  | || | _/ /    \ \_ | |
+| ||_____|\____| | || | |_________|  | || |   |_____|    | || | |____| |___| | || ||____|  |____|| |
+| |              | || |              | || |              | || |              | || |              | |
+| '--------------' || '--------------' || '--------------' || '--------------' || '--------------' |
+ '----------------'  '----------------'  '----------------'  '----------------'  '----------------' 
+ __________________________________________________________________________________________________
+    """
+    print(art)
+Banner()
 if __name__ == "__main__":
     try:
         while True:
